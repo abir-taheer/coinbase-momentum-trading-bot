@@ -8,4 +8,4 @@ async function pulse() {
   await setupWebsockets();
 }
 
-pulse();
+pulse().catch(console.log);

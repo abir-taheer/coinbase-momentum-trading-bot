@@ -11,7 +11,7 @@ let status = "buying"; // buying, selling, waiting
 let profitProfileId = null;
 let tradingProfileId = null;
 
-module.exports = {
+const sharedValues = {
   highestPriceSinceLastBuy,
   lowestPriceSinceLastSell,
   lastBuy,
@@ -22,3 +22,7 @@ module.exports = {
   tradingProfileId,
   profitProfileId,
 };
+
+setInterval(() => console.log(sharedValues), 1000 * 60 * 5);
+
+module.exports = sharedValues;

@@ -38,7 +38,7 @@ async function pulseSelling(ticker) {
     const order = await placeOrder({
       side: "sell",
       price,
-      size: sharedValues.amountOfCrypto,
+      size: sharedValues.amountOfCrypto.toFixed(6),
       productId,
     });
 

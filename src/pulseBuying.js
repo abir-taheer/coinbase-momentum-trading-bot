@@ -24,16 +24,22 @@ async function pulseBuying(ticker) {
       price
     );
 
-    sharedValues.status = "waiting";
-    const order = await placeOrder({
-      side: "buy",
-      price,
-      size: sharedValues.amountOfBaseCurrency,
-      productId,
-    });
+    try {
+      sharedValues.status = "waiting";
 
-    sharedValues.highestPriceSinceLastBuy = price;
-    sharedValues.lastBuy = order;
+      const order = await placeOrder({
+        side: "buy",
+        price,
+        size: (sharedValues.amountOfBaseCurrency / price).toFixed(6),
+        productId,
+      });
+
+      sharedValues.highestPriceSinceLastBuy = price;
+      sharedValues.lastBuy = order;
+    } catch (e) {
+      console.log(e);
+    }
+
     await updateBalances();
   }
 }
