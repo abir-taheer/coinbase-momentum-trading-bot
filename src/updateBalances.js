@@ -1,12 +1,16 @@
 const client = require("./client");
 const sharedConstants = require("./sharedValues");
-const { baseCurrency, crypto, minimumBalance } = require("./settings");
+const {
+  baseCurrency,
+  crypto,
+  minimumBalance,
+} = require("./settings");
 
 async function updateBalances() {
   const accounts = await client.rest.account.listAccounts();
   sharedConstants.amountOfCrypto = Number(
     accounts.find((a) => a.currency === crypto).balance
-  ).toFixed(6);
+  );
 
   sharedConstants.amountOfBaseCurrency =
     Number(accounts.find((a) => a.currency === baseCurrency).balance) -

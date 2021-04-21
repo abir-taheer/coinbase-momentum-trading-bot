@@ -23,6 +23,4 @@ const sharedValues = {
   profitProfileId,
 };
 
-setInterval(() => console.log(sharedValues), 1000 * 60 * 5);
-
 module.exports = sharedValues;

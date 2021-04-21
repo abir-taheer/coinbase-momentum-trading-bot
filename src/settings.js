@@ -6,7 +6,8 @@ const profitPercentage = Number(process.env.PROFIT_PERCENTAGE) || 0.75;
 const sellDelta = Number(process.env.SELL_DELTA) || 0.02;
 const buyDelta = Number(process.env.BUY_DELTA) || 0.02;
 const minimumBalance = Number(process.env.MINIMUM_BALANCE) || 5;
-
+const cryptoFractionalAccuracy =
+  Number(process.env.CRYPTO_FRACTIONAL_ACCURACY) || 6;
 const productId = crypto + "-" + baseCurrency;
 
 module.exports = {
@@ -19,4 +20,5 @@ module.exports = {
   buyDelta,
   productId,
   minimumBalance,
+  cryptoFractionalAccuracy,
 };

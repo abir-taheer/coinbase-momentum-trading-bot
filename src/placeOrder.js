@@ -4,11 +4,11 @@ const sleep = require("./sleep");
 // Places a limit order at the specified price
 async function placeOrder({ price, side, size, productId = "LTC-USD" }) {
   let order = await client.rest.order.placeOrder({
-    price,
+    // price,
     size,
     product_id: productId,
     side,
-    type: "limit",
+    type: "market",
   });
 
   let secondsWaited = 0;

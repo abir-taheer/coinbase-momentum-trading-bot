@@ -1,7 +1,7 @@
 const sharedValues = require("./sharedValues");
 const placeOrder = require("./placeOrder");
 const updateBalances = require("./updateBalances");
-const { buyDelta, productId } = require("./settings");
+const { buyDelta, productId, cryptoFractionalAccuracy } = require("./settings");
 
 async function pulseBuying(ticker) {
   const price = Number(ticker.price);
@@ -9,6 +9,13 @@ async function pulseBuying(ticker) {
 
   if (!lowestPriceSinceLastSell || price < lowestPriceSinceLastSell) {
     sharedValues.lowestPriceSinceLastSell = price;
+    console.log(
+      "New low hit",
+      price,
+      "|",
+      "Current target buy price",
+      price * (1 + buyDelta)
+    );
     return;
   }
 
@@ -30,7 +37,9 @@ async function pulseBuying(ticker) {
       const order = await placeOrder({
         side: "buy",
         price,
-        size: (sharedValues.amountOfBaseCurrency / price).toFixed(6),
+        size: (sharedValues.amountOfBaseCurrency / price).toFixed(
+          cryptoFractionalAccuracy
+        ),
         productId,
       });
 

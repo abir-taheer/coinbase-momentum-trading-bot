@@ -7,6 +7,7 @@ const {
   productId,
   profitPercentage,
   baseCurrency,
+  cryptoFractionalAccuracy,
 } = require("./settings");
 
 async function pulseSelling(ticker) {
@@ -19,6 +20,13 @@ async function pulseSelling(ticker) {
 
   if (!highestPriceSinceLastBuy || highestPriceSinceLastBuy < price) {
     sharedValues.highestPriceSinceLastBuy = price;
+    console.log(
+      "New high hit",
+      price,
+      "|",
+      "Current sell target at ",
+      price * (1 - sellDelta)
+    );
     return;
   }
 
@@ -38,7 +46,7 @@ async function pulseSelling(ticker) {
     const order = await placeOrder({
       side: "sell",
       price,
-      size: sharedValues.amountOfCrypto.toFixed(6),
+      size: sharedValues.amountOfCrypto.toFixed(cryptoFractionalAccuracy),
       productId,
     });
 
